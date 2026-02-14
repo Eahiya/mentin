@@ -1,0 +1,8 @@
+
+{
+  "name": "RAPID-100 Dispatcher",
+  "description": "Next-gen AI emergency triage dashboard featuring real-time transcription, intent classification, and hybrid priority scoring.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
