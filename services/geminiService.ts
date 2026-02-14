@@ -6,10 +6,8 @@ import { EmergencyAnalysis, EmergencyType, SeverityLevel } from "../types";
  * NEURAL TRIAGE CORE
  * Powered by Gemini 3 Flash
  */
-
 export const analyzeEmergencyTranscript = async (transcript: string): Promise<EmergencyAnalysis> => {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -55,6 +53,35 @@ export const analyzeEmergencyTranscript = async (transcript: string): Promise<Em
       recommended_route: "Dispatcher Manual Override",
       reasoning_trace: "Critical: API request failed or timed out."
     };
+  }
+};
+
+/**
+ * NEURAL TRANSCRIPTION ENGINE
+ * Uses multi-modal capabilities to transcribe audio files for simulation ingestion.
+ */
+export const transcribeAudio = async (base64Data: string, mimeType: string): Promise<string> => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents: [
+        {
+          inlineData: {
+            data: base64Data,
+            mimeType: mimeType,
+          },
+        },
+        { text: "Please provide a verbatim transcript of this emergency call. Format it as a single block of text." },
+      ],
+      config: {
+        systemInstruction: "You are a professional stenographer for emergency services. Transcribe everything exactly as heard.",
+      }
+    });
+    return response.text || "";
+  } catch (error) {
+    console.error("Transcription Failed:", error);
+    throw error;
   }
 };
 

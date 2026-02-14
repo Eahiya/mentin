@@ -13,10 +13,10 @@ const data = [
 
 const StatsPanel: React.FC = () => {
   return (
-    <div className="bg-slate-900 rounded-lg border border-slate-700 h-full p-2 flex flex-col">
-       <div className="text-[10px] text-slate-500 mb-2 font-mono flex justify-between px-2">
-            <span>EDGE LATENCY (MS)</span>
-            <span className="text-emerald-400">AIR-GAPPED: READY</span>
+    <div className="bg-white rounded-2xl border border-slate-200 h-full p-4 flex flex-col shadow-sm">
+       <div className="text-[10px] text-slate-400 mb-4 font-black tracking-widest flex justify-between px-2 uppercase">
+            <span>Core Latency (S)</span>
+            <span className="text-blue-600">Secure Uplink</span>
        </div>
        <div className="flex-1 w-full min-h-[80px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -24,11 +24,11 @@ const StatsPanel: React.FC = () => {
                 <XAxis dataKey="name" hide />
                 <YAxis hide domain={[0, 1]} />
                 <Tooltip 
-                    contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', fontSize: '10px' }}
-                    itemStyle={{ color: '#10b981' }}
+                    contentStyle={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}
+                    itemStyle={{ color: '#2563eb' }}
                     labelStyle={{ display: 'none' }}
                 />
-                <Line type="stepAfter" dataKey="latency" stroke="#10b981" strokeWidth={1.5} dot={false} />
+                <Line type="monotone" dataKey="latency" stroke="#2563eb" strokeWidth={3} dot={false} />
             </LineChart>
         </ResponsiveContainer>
        </div>
